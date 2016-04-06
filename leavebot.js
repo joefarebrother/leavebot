@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.9
+// @version      1.10
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -42,7 +42,7 @@
 		sendMessage("/leave_room", true);
 	}
 
-	var sizeThreshold = 20, lastStatisticsUpdate = Math.floor(Date.now()/1000);
+	var sizeThreshold = 10, lastStatisticsUpdate = Math.floor(Date.now()/1000);
 	function update () {
 		//Code mostly stolen from Parrot
 
