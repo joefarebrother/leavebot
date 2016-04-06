@@ -105,6 +105,7 @@
 
         // Try to join if not currently in a chat
         if ($("#joinRobinContainer").length) {
+        	clearbotList();
             $("#joinRobinContainer").click();
             setTimeout(function() {
                 $("#joinRobin").click();
