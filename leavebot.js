@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.0
+// @version      1.4
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -30,7 +30,8 @@
     	$("#robinSendMessage > input[type='submit']").click();
 	}
 
-	function leave () {
+	function leave (reason) {
+		console.log(reason);
 		sendMessage("Bye, leaving to seed smaller tiers!");
 		sendMessage("/leave_room", true);
 	}
@@ -68,7 +69,7 @@
             var currentTime = Math.floor(Date.now()/1000);
 
             if(counts.INCREASE * 2 < users){
-            	leave();
+            	leave("Too many stayers");
             }
 
             if((currentTime-lastStatisticsUpdate)>=60)
@@ -134,10 +135,10 @@
         });
 
         if(botcount > users - botcount + 1 && users > 2 && Math.random() < botcount/users - 0.6){
-        	leave();
+        	leave("Bots outnumber users");
         }
         if(users > sizeThreshold){
-        	leave();
+        	leave("Over size threshold");
         }
 
         savebotList();
@@ -157,7 +158,7 @@
 		sendMessage(messages[messageIdx++ % messages.length]);
 	}
 
-	update();
+	setTimeout(update(), 1000);
 	setInterval(update, 30000);
 	setInterval(spam, 10000 + Math.random() * 5000 - 1000); //Have some randomness as not to collide with other leavebots
 
