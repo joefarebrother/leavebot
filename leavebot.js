@@ -144,7 +144,7 @@
         	if(isbot === "yes"){botcount++;}
         });
 
-        console.log("Bot count: " botcount);
+        console.log("Bot count: ", botcount);
 
         if(botcount > users - botcount + 1 && users > 2 && Math.random() < botcount/users - 0.6){
         	leave("Bots outnumber users");
