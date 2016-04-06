@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.13
+// @version      1.14
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -126,6 +126,8 @@
         $(".robin-message").each(function(idx, message) {
 			var name = $(message).find(".robin-message--from").text().trim();
 			var text = $(message).find(".robin-message--message").text().trim();
+
+			if(name == ""){return;}
 
 			if(text.startsWith("%leavebot")){
 				botList[name] = "yes";
