@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.15
+// @version      2.0
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -44,7 +44,6 @@
 
 	var sizeThreshold = 10, lastStatisticsUpdate = Math.floor(Date.now()/1000), users = 0, userList = [];
 	function update () {
-		console.log("Updating");
 		//Code mostly stolen from Parrot
 
 		$(".robin-chat--vote.robin--vote-class--increase:not('.robin--active')").click();
@@ -76,8 +75,6 @@
             });
 
             currentUsers = users = list.length;
-            console.log(users, " users");
-            console.log(counts);
 
             var currentTime = Math.floor(Date.now()/1000);
 
@@ -152,9 +149,6 @@
         	}
         	if(isbot === "yes"){botcount++;}
         });
-
-        console.log(botList);
-        console.log("Bot count: ", botcount);
 
         if(botcount > users - botcount + 1 && users > 2 && Math.random() < botcount/users - 0.6){
         	leave("Bots outnumber users");
