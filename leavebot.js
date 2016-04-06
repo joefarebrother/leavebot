@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      0.2
+// @version      0.4
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -111,20 +111,20 @@
             }, 1000);
         }
 
-        $(".robin-message").each(function($message) {
-			var name = $message.find(".robin-message--from robin--username").text().trim();
-			var text = $message.find(".robin-message--message").text.trim();
+        $(".robin-message").each(function(message) {
+			var name = $(message).find(".robin-message--from robin--username").text().trim();
+			var text = $(message).find(".robin-message--message").text.trim();
 
 			if(text.startsWith("%leavebot") && !botList[name]){
 				botList[name] = "yes";
 				if ($(".user a").text() !== "robin-leave-bot") { // So I can debug this
-					$message.hide(); //Users of this script will be filtered from this script's spam
+					$(message).hide(); //Users of this script will be filtered from this script's spam
 				}
 			}
 			else{
 				botList[name] = "no";
 			}
-			$message.removeClass(".robin-message"); //So it's not selected in future
+			$(message).removeClass(".robin-message"); //So it's not selected in future
 		});
 
         var botcount = 0;
