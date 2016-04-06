@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.11.1
+// @version      1.12
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -73,7 +73,7 @@
             });
 
             users = list.length;
-            console.log(users);
+            console.log(users, " users");
             console.log(counts);
 
             var currentTime = Math.floor(Date.now()/1000);
@@ -124,7 +124,7 @@
         }
 
         $(".robin-message").each(function(message) {
-			var name = $(message).find(".robin-message--from robin--username").text().trim();
+			var name = $(message).find(".robin-message--from").text().trim();
 			var text = $(message).find(".robin-message--message").text().trim();
 
 			if(text.startsWith("%leavebot")){
