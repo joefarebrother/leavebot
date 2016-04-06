@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.0
+// @version      2.1
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -165,8 +165,9 @@
 	["I am a bot designed to grow up smaller tiers, then leave",
 	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
 	"Please consider installing my script at https://github.com/joefarebrother/leavebot",
-	"If you install my script, it will filter out my spam, so you can still chat",
-	"PM u/robin-leave-bot on reddit if there's a bug"];
+	"If you install my script, it will filter out my messages, so you can still chat",
+	"PM u/robin-leave-bot on reddit if there's a bug",
+	"Thank you for your patience"];
 
 	var messageIdx = 0;
 	var adInterval;
