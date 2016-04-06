@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.14
+// @version      1.14.1
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -42,7 +42,7 @@
 		sendMessage("/leave_room", true);
 	}
 
-	var sizeThreshold = 10, lastStatisticsUpdate = Math.floor(Date.now()/1000), users = 0;
+	var sizeThreshold = 10, lastStatisticsUpdate = Math.floor(Date.now()/1000), users = 0, list = [];
 	function update () {
 		console.log("Updating");
 		//Code mostly stolen from Parrot
@@ -56,7 +56,7 @@
             var start = a.substring(a.indexOf(START_TOKEN)+START_TOKEN.length);
             var end = start.substring(0,start.indexOf(END_TOKEN));
             var config = JSON.parse(end);
-            var list = config.robin_user_list;
+            list = config.robin_user_list;
 
 
             var counts = list.reduce(function(counts, voter) {
@@ -143,6 +143,10 @@
 
         var botcount = 0;
         $.each(botList, function(name, isbot) {
+        	if(list.indexOf(name) == -1){
+        		delete botList[name];
+        		return;
+        	}
         	if(isbot === "yes"){botcount++;}
         });
 
