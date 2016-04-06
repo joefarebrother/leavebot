@@ -35,7 +35,7 @@
 		sendMessage("/leave_room", true);
 	}
 
-	var sizeThreshold = 32, lastStatisticsUpdate = Math.floor(Date.now()/1000);
+	var sizeThreshold = 20, lastStatisticsUpdate = Math.floor(Date.now()/1000);
 	function update () {
 		//Code mostly stolen from Parrot
 
