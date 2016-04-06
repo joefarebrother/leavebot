@@ -1,12 +1,12 @@
-
 // ==UserScript==
 // @name         leavebot for robbin
-// @namespaaace    http://tampermonkey.net/
-// @version      0.1
+// @namespaaace  http://tampermonkey.net/
+// @version      0.2
 // @description  Seed and leave smaller tiers
-// @author       u/jfb1337
+// @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
-// @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+// @require      http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+// @updateURL    https://raw.githubusercontent.com/joefarebrother/leavebot/master/leavebot.js
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_xmlhttpRequest
@@ -37,7 +37,9 @@
 
 	var sizeThreshold = 32, lastStatisticsUpdate = Math.floor(Date.now()/1000);
 	function update () {
-		//Code largely stolen from Parrot
+		//Code mostly stolen from Parrot
+
+		$(".robin-chat--vote.robin--vote-class--increase:not('.robin--active')").click();
 
 		var users = 0;
         $.get("/robin/", function(a) {
@@ -97,8 +99,7 @@
         var timeSinceLastChat = new Date() - (new Date(lastChatString));
         var now = new Date();
         if (timeSinceLastChat !== undefined && (timeSinceLastChat > 600000 && now - timeStarted > 600000)) {
-            if (settings.timeoutEnabled)
-                window.location.reload(); // reload if we haven't seen any activity in a minute.
+            window.location.reload(); // reload if we haven't seen any activity in a minute.
         }
 
         // Try to join if not currently in a chat
@@ -109,12 +110,15 @@
             }, 1000);
         }
 
-        $(".robin-message").forEach(function($message) {
+        $(".robin-message").each(function($message) {
 			var name = $message.find(".robin-message--from robin--username").text().trim();
 			var text = $message.find(".robin-message--message").text.trim();
 
 			if(text.startsWith("%leavebot") && !botlist[name]){
-				botlist[name] = "probably";
+				botlist[name] = "yes";
+				if ($(".user a").text() !== "robin-leave-bot") { // So I can debug this
+					$message.hide(); //Users of this script will be filtered from this script's spam
+				}
 			}
 			else{
 				botlist[name] = "no";
@@ -123,8 +127,35 @@
 		});
 
         var botcount = 0;
+        $.each(botlist, function(name, isbot) {
+        	if(isbot === "yes"){botcount++;}
+        });
+
+        if(botcount > users - botcount + 1 && users > 2 && Math.random() < botcount/users - 0.6){
+        	leave();
+        }
+        if(users > sizeThreshold){
+        	leave();
+        }
+
+        saveBotlist();
 	}
 
-	//todo: "spam" chat to convince users to install
+	//"Spam" the chat to convince users to install or leave
+	var messages = 
+	["I am a bot designed to grow small up smaller tiers, then leave",
+	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7"
+	"Please consider installing my script at https://github.com/joefarebrother/leavebot/blob/master/leavebot.js",
+	"If you install my script, it will filter out my spam, so you can still chat",
+	"PM u/robin-leave-bot on reddit if there's a bug"];
+
+	var messageIdx = 0;
+
+	function spam() {
+		sendMessage(messages[messageIdx++ % messages.length]);
+	}
+
+	setTimeout(update, 30000);
+	setTimeout(spam, 10000);
 
 })()
