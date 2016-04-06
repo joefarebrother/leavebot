@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.10
+// @version      1.11.1
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -44,6 +44,7 @@
 
 	var sizeThreshold = 10, lastStatisticsUpdate = Math.floor(Date.now()/1000);
 	function update () {
+		console.log("Updating");
 		//Code mostly stolen from Parrot
 
 		$(".robin-chat--vote.robin--vote-class--increase:not('.robin--active')").click();
@@ -72,6 +73,9 @@
             });
 
             users = list.length;
+            console.log(users);
+            console.log(counts);
+
             var currentTime = Math.floor(Date.now()/1000);
 
             if((counts.INCREASE) * 2 + counts.NOVOTE < users){
@@ -123,13 +127,13 @@
 			var name = $(message).find(".robin-message--from robin--username").text().trim();
 			var text = $(message).find(".robin-message--message").text().trim();
 
-			if(text.startsWith("%leavebot") && !botList[name]){
+			if(text.startsWith("%leavebot")){
 				botList[name] = "yes";
 				if ($(".user a").text() !== "robin-leave-bot") { // So I can debug this
 					$(message).hide(); //Users of this script will be filtered from this script's spam
 				}
 			}
-			else{
+			else if(!botList[name]){
 				botList[name] = "no";
 			}
 			$(message).removeClass(".robin-message"); //So it's not selected in future
@@ -139,6 +143,8 @@
         $.each(botList, function(name, isbot) {
         	if(isbot === "yes"){botcount++;}
         });
+
+        console.log("Bot count: " botcount);
 
         if(botcount > users - botcount + 1 && users > 2 && Math.random() < botcount/users - 0.6){
         	leave("Bots outnumber users");
