@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      0.4
+// @version      0.8
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -26,8 +26,8 @@
 
 	function sendMessage (msg, overridePrefix) {
 		var prefix = overridePrefix ? "" : "%leavebot ";
-		$(".robinMessageTextAlt").val(msg);
-		$(".sendBtn").click();
+		$(".text-counter-input").val(prefix + msg);
+		$("#robinSendMessage").submit();
 	}
 
 	function leave () {
@@ -113,7 +113,7 @@
 
         $(".robin-message").each(function(message) {
 			var name = $(message).find(".robin-message--from robin--username").text().trim();
-			var text = $(message).find(".robin-message--message").text.trim();
+			var text = $(message).find(".robin-message--message").text().trim();
 
 			if(text.startsWith("%leavebot") && !botList[name]){
 				botList[name] = "yes";
@@ -158,6 +158,6 @@
 
 	update();
 	setInterval(update, 30000);
-	setInterval(spam, 10000 + Math.random * 5000 - 1000); //Have some randomness as not to collide with other leavebots
+	setInterval(spam, 10000 + Math.random() * 5000 - 1000); //Have some randomness as not to collide with other leavebots
 
 })();
