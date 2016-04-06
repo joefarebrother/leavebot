@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -68,7 +68,7 @@
             users = list.length;
             var currentTime = Math.floor(Date.now()/1000);
 
-            if(counts.INCREASE * 2 < users){
+            if((counts.INCREASE) * 2 + counts.NOVOTE < users){
             	leave("Too many stayers");
             }
 
