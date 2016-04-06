@@ -14,13 +14,13 @@
 
 (function (){
 	
-	var botList = JSON.parse(localStorage.getItem("leavebot-botlist")) || {};
+	var botList = JSON.parse(localStorage.getItem("leavebot-botList")) || {};
 
-	function saveBotlist () {
-		localStorage.setItem("leavebot-botlist", JSON.stringify(botList));
+	function savebotList () {
+		localStorage.setItem("leavebot-botList", JSON.stringify(botList));
 	}
-	function clearBotlist () {
-		localStorage.setItem("leavebot-botlist", "{}");
+	function clearbotList () {
+		localStorage.setItem("leavebot-botList", "{}");
 		botList = {};
 	}
 
@@ -54,7 +54,7 @@
             var counts = list.reduce(function(counts, voter) {
                 counts[voter.vote] += 1;
                 if(voter.vote !== "INCREASE"){ //Can't be a leavebot if it's not autogrowing
-                	botlist[voter.name] = "no";
+                	botList[voter.name] = "no";
                 }
                 return counts;
             }, {
@@ -115,20 +115,20 @@
 			var name = $message.find(".robin-message--from robin--username").text().trim();
 			var text = $message.find(".robin-message--message").text.trim();
 
-			if(text.startsWith("%leavebot") && !botlist[name]){
-				botlist[name] = "yes";
+			if(text.startsWith("%leavebot") && !botList[name]){
+				botList[name] = "yes";
 				if ($(".user a").text() !== "robin-leave-bot") { // So I can debug this
 					$message.hide(); //Users of this script will be filtered from this script's spam
 				}
 			}
 			else{
-				botlist[name] = "no";
+				botList[name] = "no";
 			}
 			$message.removeClass(".robin-message"); //So it's not selected in future
 		});
 
         var botcount = 0;
-        $.each(botlist, function(name, isbot) {
+        $.each(botList, function(name, isbot) {
         	if(isbot === "yes"){botcount++;}
         });
 
@@ -139,7 +139,7 @@
         	leave();
         }
 
-        saveBotlist();
+        savebotList();
 	}
 
 	//"Spam" the chat to convince users to install or leave
@@ -156,6 +156,7 @@
 		sendMessage(messages[messageIdx++ % messages.length]);
 	}
 
+	update();
 	setInterval(update, 30000);
 	setInterval(spam, 10000 + Math.random * 5000 - 1000); //Have some randomness as not to collide with other leavebots
 
