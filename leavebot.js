@@ -20,7 +20,7 @@
 		localStorage.setItem("leavebot-botlist", JSON.stringify(botList));
 	}
 	function clearBotlist () {
-		localStorage.setItem("leavebot-botlist", "{}")
+		localStorage.setItem("leavebot-botlist", "{}");
 		botList = {};
 	}
 
@@ -94,7 +94,8 @@
                     $.get(tracker + queryString);
                 });
             }
-        }
+        });
+
         var lastChatString = $(".robin-message--timestamp").last().attr("datetime");
         var timeSinceLastChat = new Date() - (new Date(lastChatString));
         var now = new Date();
@@ -144,7 +145,7 @@
 	//"Spam" the chat to convince users to install or leave
 	var messages = 
 	["I am a bot designed to grow small up smaller tiers, then leave",
-	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7"
+	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
 	"Please consider installing my script at https://github.com/joefarebrother/leavebot/blob/master/leavebot.js",
 	"If you install my script, it will filter out my spam, so you can still chat",
 	"PM u/robin-leave-bot on reddit if there's a bug"];
@@ -155,7 +156,7 @@
 		sendMessage(messages[messageIdx++ % messages.length]);
 	}
 
-	setTimeout(update, 30000);
-	setTimeout(spam, 10000);
+	setInterval(update, 30000);
+	setInterval(spam, 10000 + Math.random * 5000 - 1000); //Have some randomness as not to collide with other leavebots
 
-})()
+})();
