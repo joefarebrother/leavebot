@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.5
+// @version      1.6
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -146,7 +146,7 @@
 
 	//"Spam" the chat to convince users to install or leave
 	var messages = 
-	["I am a bot designed to grow small up smaller tiers, then leave",
+	["I am a bot designed to grow up smaller tiers, then leave",
 	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
 	"Please consider installing my script at https://github.com/joefarebrother/leavebot/blob/master/leavebot.js",
 	"If you install my script, it will filter out my spam, so you can still chat",
