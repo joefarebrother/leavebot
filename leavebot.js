@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -26,8 +26,8 @@
 
 	function sendMessage (msg, overridePrefix) {
 		var prefix = overridePrefix ? "" : "%leavebot ";
-		$(".text-counter-input").val(prefix + msg);
-		$("#robinSendMessage").submit();
+		$("#robinSendMessage > input[type='text']").val(prefix + msg);
+    	$("#robinSendMessage > input[type='submit']").click();
 	}
 
 	function leave () {
