@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.7
+// @version      1.9
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -26,7 +26,9 @@
 
 	function sendMessage (msg, overridePrefix) {
 		if($("#robinSendMessage > input[type='text']").val().trim() !== ""){
-			setTimeout(function() {sendMessage(msg, overridePrefix);}, 1000);
+			if(overridePrefix){
+				setTimeout(function() {sendMessage(msg);}, 1000);
+			}
 			return;
 		}
 		var prefix = overridePrefix ? "" : "%leavebot ";
@@ -148,7 +150,7 @@
         savebotList();
 	}
 
-	//"Spam" the chat to convince users to install or leave
+	//Advertise in the chat to convince users to install or leave
 	var messages = 
 	["I am a bot designed to grow up smaller tiers, then leave",
 	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
@@ -157,13 +159,19 @@
 	"PM u/robin-leave-bot on reddit if there's a bug"];
 
 	var messageIdx = 0;
+	var adInterval;
 
-	function spam() {
-		sendMessage(messages[messageIdx++ % messages.length]);
+	function advertise() {
+		if (messageIdx >= messages.length){
+			clearInterval(adInterval);
+		}
+		else{
+			sendMessage(messages[messageIdx++]);
+		}
 	}
 
-	setTimeout(update(), 1000);
+	update();
 	setInterval(update, 30000);
-	setInterval(spam, 10000 + Math.random() * 5000 - 1000); //Have some randomness as not to collide with other leavebots
+	adInterval = setInterval(advertise, 10000 + Math.random() * 5000 - 1000); //Have some randomness as not to collide with other leavebots
 
 })();
