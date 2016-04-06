@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      1.12.2
+// @version      1.13
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -42,14 +42,14 @@
 		sendMessage("/leave_room", true);
 	}
 
-	var sizeThreshold = 10, lastStatisticsUpdate = Math.floor(Date.now()/1000);
+	var sizeThreshold = 10, lastStatisticsUpdate = Math.floor(Date.now()/1000), users = 0;
 	function update () {
 		console.log("Updating");
 		//Code mostly stolen from Parrot
 
 		$(".robin-chat--vote.robin--vote-class--increase:not('.robin--active')").click();
 
-		var users = 0;
+		var currentUsers = 0;
         $.get("/robin/", function(a) {
             var START_TOKEN = "<script type=\"text/javascript\" id=\"config\">r.setup(";
             var END_TOKEN = ")</script>";
@@ -61,7 +61,7 @@
 
             var counts = list.reduce(function(counts, voter) {
                 counts[voter.vote] += 1;
-                if(voter.vote !== "INCREASE"){ //Can't be a leavebot if it's not autogrowing
+                if(voter.vote !== "INCREASE" && voter.vote !=="NOVOTE"){ //Can't be a leavebot if it's not autogrowing
                 	botList[voter.name] = "no";
                 }
                 return counts;
@@ -72,7 +72,7 @@
                 CONTINUE: 0
             });
 
-            users = list.length;
+            currentUsers = users = list.length;
             console.log(users, " users");
             console.log(counts);
 
@@ -123,7 +123,7 @@
             }, 1000);
         }
 
-        $(".robin-message").each(function(message) {
+        $(".robin-message").each(function(idx, message) {
 			var name = $(message).find(".robin-message--from").text().trim();
 			var text = $(message).find(".robin-message--message").text().trim();
 
