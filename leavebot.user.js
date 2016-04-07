@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.3
+// @version      2.3.1
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -64,7 +64,7 @@
     $("<textarea id='leavebot-messages'>").val(settings.messages.join("\n")).appendTo($settings);
     $("<span>").text("Message to dispaly upon leaving").appendTo($settings);
     $("<input id='leavebot-leaveMessage'>").val(settings.leaveMessage).appendTo($settings);
-    $("<span>").text("Time between messages (seconds)")..appendTo($settings);
+    $("<span>").text("Time between messages (seconds)").appendTo($settings);
     $("<input id='leavebot-interval'>").val(settings.messageInterval).appendTo($settings);
     $("<button>").text("Defaults").click(function() {
         localStorage.setItem("leavebot-settings", defaultSettings);
