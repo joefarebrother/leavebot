@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.3.4
+// @version      2.3.6
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -52,7 +52,7 @@
 
 	function leave (reason) {
 		console.log(reason);
-		sendMessage(leaveMessage);
+		sendMessage(settings.leaveMessage);
 		sendMessage("/leave_room", true);
 	}
 
