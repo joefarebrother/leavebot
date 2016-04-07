@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.3.3
+// @version      2.3.4
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -61,9 +61,9 @@
     $("<span>").text("Size threshold:").appendTo($settings);
     $("<input type='num' id='leavebot-sizethresh'>").val(settings.sizeThreshold).appendTo($settings);
     $("<span>").text("Messages to display upon join:").appendTo($settings);
-    $("<textarea id='leavebot-messages'>").val(settings.messages.join("\n")).appendTo($settings);
+    $("<textarea id='leavebot-messages' cols='100' rows='7'>").val(settings.messages.join("\n")).appendTo($settings);
     $("<span>").text("Message to dispaly upon leaving").appendTo($settings);
-    $("<input id='leavebot-leaveMessage'>").val(settings.leaveMessage).appendTo($settings);
+    $("<input id='leavebot-leaveMessage' size='100'>").val(settings.leaveMessage).appendTo($settings);
     $("<span>").text("Time between messages (seconds)").appendTo($settings);
     $("<input id='leavebot-interval'>").val(settings.messageInterval).appendTo($settings);
     $("<button>").text("Defaults").click(function() {
@@ -193,7 +193,7 @@
         if(botcount > users - botcount + 1 && users > 2 && Math.random() < botcount/users - 0.6){
         	leave("Bots outnumber users");
         }
-        if(users > sizeThreshold){
+        if(users > settings.sizeThreshold){
         	leave("Over size threshold");
         }
         if(users == 1){
