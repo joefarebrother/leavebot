@@ -6,7 +6,7 @@
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
-// @updateURL    https://raw.githubusercontent.com/joefarebrother/leavebot/master/leavebot.js
+// @updateURL    https://raw.githubusercontent.com/joefarebrother/leavebot/master/leavebot.user.js
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_xmlhttpRequest
