@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.2.4
+// @version      2.3
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -15,7 +15,21 @@
 (function (){
 	
 	var botList = JSON.parse(localStorage.getItem("leavebot-botList")) || {};
+    var defaultSettings = {
+        sizeThreshold: 10,
+        messages:
+            ["I am a bot designed to grow up smaller tiers, then leave",
+            "More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
+            "Please consider installing my script at https://github.com/joefarebrother/leavebot",
+            "Or a quieter fork, https://github.com/nzchicken/leavebot",
+            "PM u/robin-leave-bot on reddit if there's a bug",
+            "I'll be gone in a few merges, so you can get back to chatting",
+            "Thank you for your patience"],
+        leaveMessage: "Bye, leaving to seed smaller tiers!",
+        messageInterval: 7;
+    }
 
+    var settings = JSON.parse(localStorage.getItem("leavebot-settings")) || defaultSettings;
 	function savebotList () {
 		localStorage.setItem("leavebot-botList", JSON.stringify(botList));
 	}
@@ -38,11 +52,37 @@
 
 	function leave (reason) {
 		console.log(reason);
-		sendMessage("Bye, leaving to seed smaller tiers!");
+		sendMessage(leaveMessage);
 		sendMessage("/leave_room", true);
 	}
 
-	var sizeThreshold = 10, lastStatisticsUpdate = Math.floor(Date.now()/1000), users = 0, userList = [];
+    var $settings = $("<div id='leavebot-settings'>").appendTo($("body"));
+    $("<h3 id='robin-leavebot-settings--title'>").text("Leavebot settings").appendTo($settings);
+    $("<span>").text("Size threshold:").appendTo($settings);
+    $("<input type='num' id='leavebot-sizethresh'>").val(settings.sizeThreshold).appendTo($settings);
+    $("<span>").text("Messages to display upon join:").appendTo($settings);
+    $("<textarea id='leavebot-messages'>").val(settings.messages.join("\n")).appendTo($settings);
+    $("<span>").text("Message to dispaly upon leaving").appendTo($settings);
+    $("<input id='leavebot-leaveMessage'>").val(settings.leaveMessage).appendTo($settings);
+    $("<span>").text("Time between messages (seconds)")..appendTo($settings);
+    $("<input id='leavebot-interval'>").val(settings.messageInterval).appendTo($settings);
+    $("<button>").text("Defaults").click(function() {
+        localStorage.setItem("leavebot-settings", defaultSettings);
+        settings = defaultSettings;
+        $("#leavebot-sizethresh").val(settings.sizeThreshold);
+        $("#leavebot-messages").val(settings.messages.join("\n"));
+        $("#leavebot-leaveMessage").val(settings.leaveMessage);
+        $("#leavebot-interval").val(settings.messageInterval);
+    });
+    $settings.childeren().css("display:block").change(function() {
+        settings.sizeThreshold = $("#leavebot-sizethresh").val();
+        settings.messages = $("#leavebot-messages").val().split('\n');
+        settings.leaveMessage = $("#leavebot-leaveMessage").val();
+        settings.messageInterval = parseInt($("#leavebot-interval").val()) || defaultSettings.messageInterval;
+        localStorage.setItem("leavebot-settings", settings);
+    });
+
+	var lastStatisticsUpdate = Math.floor(Date.now()/1000), users = 0, userList = [];
 	function update () {
 		//Code mostly stolen from Parrot
 
@@ -163,15 +203,8 @@
         savebotList();
 	}
 
-	//Advertise in the chat to convince users to install or leave
-	var messages = 
-	["I am a bot designed to grow up smaller tiers, then leave",
-	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
-	"Please consider installing my script at https://github.com/joefarebrother/leavebot",
-	"Or a quieter fork, https://github.com/nzchicken/leavebot",
-	"PM u/robin-leave-bot on reddit if there's a bug",
-    "I'll be gone in a few merges, so you can get back to chatting",
-	"Thank you for your patience"];
+	//Advertise itself in the chat
+	var messages = settings.messages;
 
 	var messageIdx = 0;
 	var adInterval;
@@ -188,6 +221,6 @@
     if (GM_info.isIncognito) {
 	   update();
 	   setInterval(update, 30000);
-	   adInterval = setInterval(advertise, 10000 + Math.random() * 5000 - 1000); 
+	   adInterval = setInterval(advertise, settings.messageInterval*1000); 
     }
 })();
