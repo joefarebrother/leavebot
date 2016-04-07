@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.3.2
+// @version      2.3.3
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -74,7 +74,7 @@
         $("#leavebot-leaveMessage").val(settings.leaveMessage);
         $("#leavebot-interval").val(settings.messageInterval);
     });
-    $settings.children().css("display:block").change(function() {
+    $settings.children().css("display", "block").change(function() {
         settings.sizeThreshold = $("#leavebot-sizethresh").val();
         settings.messages = $("#leavebot-messages").val().split('\n');
         settings.leaveMessage = $("#leavebot-leaveMessage").val();
