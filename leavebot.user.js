@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.3.6
+// @version      2.3.7
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -18,13 +18,8 @@
     var defaultSettings = {
         sizeThreshold: 10,
         messages:
-            ["I am a bot designed to grow up smaller tiers, then leave",
-            "More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
-            "Please consider installing my script at https://github.com/joefarebrother/leavebot",
-            "Or a quieter fork, https://github.com/nzchicken/leavebot",
-            "PM u/robin-leave-bot on reddit if there's a bug",
-            "I'll be gone in a few merges, so you can get back to chatting",
-            "Thank you for your patience"],
+            ["Syncing with other bots like me - source code: https://github.com/joefarebrother/leavebot",
+            "I'll let you chat now, and I'll be gone in a few merges!"],
         leaveMessage: "Bye, leaving to seed smaller tiers!",
         messageInterval: 7,
     };
