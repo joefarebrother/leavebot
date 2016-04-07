@@ -168,7 +168,7 @@
 	["I am a bot designed to grow up smaller tiers, then leave",
 	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
 	"Please consider installing my script at https://github.com/joefarebrother/leavebot",
-	"Or a less 'spammy' fork, https://github.com/nzchicken/leavebot"
+	"Or a less 'spammy' fork, https://github.com/nzchicken/leavebot",
 	"PM u/robin-leave-bot on reddit if there's a bug",
 	"Thank you for your patience"];
 
