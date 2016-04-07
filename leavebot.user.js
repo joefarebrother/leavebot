@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.2
+// @version      2.2.1
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -127,7 +127,7 @@
 			var name = $(message).find(".robin-message--from").text().trim();
 			var text = $(message).find(".robin-message--message").text().trim();
 
-			if(name == ""){return;}
+			if(name === ""){return;}
 
 			if(text.startsWith("%leavebot")){
 				botList[name] = "yes";
@@ -168,7 +168,7 @@
 	["I am a bot designed to grow up smaller tiers, then leave",
 	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
 	"Please consider installing my script at https://github.com/joefarebrother/leavebot",
-	"Or a less 'spammy' fork, https://github.com/nzchicken/leavebot",
+	"Or a quieter fork, https://github.com/nzchicken/leavebot",
 	"PM u/robin-leave-bot on reddit if there's a bug",
 	"Thank you for your patience"];
 

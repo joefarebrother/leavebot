@@ -8,3 +8,5 @@ First, install [Tampermonkey](http://tampermonkey.net/). Then, click [here](http
 
 
 Only works in incognito mode, so you don't accidentally run this in your higher tiers.
+
+There is a quieter fork [here](https://github.com/nzchicken/leavebot)
