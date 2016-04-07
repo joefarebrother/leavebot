@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.2.2
+// @version      2.2.3
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -170,6 +170,7 @@
 	"Please consider installing my script at https://github.com/joefarebrother/leavebot",
 	"Or a quieter fork, https://github.com/nzchicken/leavebot",
 	"PM u/robin-leave-bot on reddit if there's a bug",
+    "I'll be gone in a few merges, you you can get back to chatting",
 	"Thank you for your patience"];
 
 	var messageIdx = 0;
