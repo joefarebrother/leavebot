@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.1
+// @version      2.2
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -78,7 +78,7 @@
 
             var currentTime = Math.floor(Date.now()/1000);
 
-            if((counts.INCREASE) * 2 + counts.NOVOTE < users){
+            if((counts.INCREASE) * 2 + counts.NOVOTE <= users){
             	leave("Too many stayers");
             }
 
@@ -143,7 +143,7 @@
 
         var botcount = 0;
         $.each(botList, function(name, isbot) {
-        	if(userList.indexOf(name) === -1){
+        	if(userList.indexOf(name) === -1 && userList.length !== 0){
         		delete botList[name];
         		return;
         	}
@@ -156,6 +156,9 @@
         if(users > sizeThreshold){
         	leave("Over size threshold");
         }
+        If(users == 1){
+        	leave("Alone");
+        }
 
         savebotList();
 	}
@@ -165,6 +168,7 @@
 	["I am a bot designed to grow up smaller tiers, then leave",
 	"More info in this reddit comment: https://www.reddit.com/r/robintracking/comments/4desi0/tier_15_ccandeshle/d1rf3j7",
 	"Please consider installing my script at https://github.com/joefarebrother/leavebot",
+	"Or a less 'spammy' fork, https://github.com/nzchicken/leavebot"
 	"PM u/robin-leave-bot on reddit if there's a bug",
 	"Thank you for your patience"];
 

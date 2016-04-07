@@ -4,5 +4,7 @@ A script to automatically grow a robin room and leave it as soon as other leaveb
 
 #Installation
 
-First, install [Tampermonkey](http://tampermonkey.net/). Then, click [here](https://raw.githubusercontent.com/joefarebrother/leavebot/master/leavebot.js) to install the leavebot. If you see a bunch of code, copy/paste it into greasemonkey/tampermonkey.
+First, install [Tampermonkey](http://tampermonkey.net/). Then, click [here](https://raw.githubusercontent.com/joefarebrother/leavebot/master/leavebot.user.js) to install the leavebot. If you see a bunch of code, copy/paste it into greasemonkey/tampermonkey.
 
+
+Only works in incognito mode, so you don't accidentally run this in your higher tiers.
