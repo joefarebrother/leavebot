@@ -26,8 +26,8 @@
             "I'll be gone in a few merges, so you can get back to chatting",
             "Thank you for your patience"],
         leaveMessage: "Bye, leaving to seed smaller tiers!",
-        messageInterval: 7;
-    }
+        messageInterval: 7,
+    };
 
     var settings = JSON.parse(localStorage.getItem("leavebot-settings")) || defaultSettings;
 	function savebotList () {
