@@ -156,7 +156,7 @@
         if(users > sizeThreshold){
         	leave("Over size threshold");
         }
-        If(users == 1){
+        if(users == 1){
         	leave("Alone");
         }
 
