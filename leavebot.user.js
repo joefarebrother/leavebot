@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         leavebot for robbin
 // @namespaaace  http://tampermonkey.net/
-// @version      2.2.1
+// @version      2.2.2
 // @description  Seed and leave smaller tiers
 // @author       u/robin-leave-bot
 // @include      https://www.reddit.com/robin*
@@ -184,8 +184,9 @@
 		}
 	}
 
-	update();
-	setInterval(update, 30000);
-	adInterval = setInterval(advertise, 10000 + Math.random() * 5000 - 1000); //Have some randomness as not to collide with other leavebots
-
+    if (GM_info.isIncognito) {
+	   update();
+	   setInterval(update, 30000);
+	   adInterval = setInterval(advertise, 10000 + Math.random() * 5000 - 1000); 
+    }
 })();
