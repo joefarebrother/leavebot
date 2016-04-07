@@ -79,7 +79,7 @@
         settings.messages = $("#leavebot-messages").val().split('\n');
         settings.leaveMessage = $("#leavebot-leaveMessage").val();
         settings.messageInterval = parseInt($("#leavebot-interval").val()) || defaultSettings.messageInterval;
-        localStorage.setItem("leavebot-settings", settings);
+        localStorage.setItem("leavebot-settings", JSON.stringify(settings));
     });
 
 	var lastStatisticsUpdate = Math.floor(Date.now()/1000), users = 0, userList = [];
